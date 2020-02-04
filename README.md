@@ -7,6 +7,6 @@ I use [paiza.io](https://paiza.io/projects/3nUaEHloK-KS_FiFqr7u9g?language=mysql
 I first insert all tables as instructed in [知乎](https://zhuanlan.zhihu.com/p/32137597). 
 Notice that there are a lot of wrong answers in that post, and therefore I only used the instruction for table insertion.
 
-All answers are in [SQL_50_Answers](../blob/master/LICENSE)
+All answers are in [SQL_50_Answers](SQL_50_Answers.docx)
 Anyone is welcomed to discuss the solutions with me or any wrong answers.
 
