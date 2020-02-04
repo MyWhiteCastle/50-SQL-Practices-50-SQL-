@@ -1,6 +1,5 @@
 # 50-SQL-Practices-50-SQL-
-50道SQL练习题 from CSDN
-[出处](https://blog.csdn.net/flycat296/article/details/63681089)
+50道SQL练习题 from [CSDN](https://blog.csdn.net/flycat296/article/details/63681089)
 
 My anwers are written in MySQL.
 I use [paiza.io](https://paiza.io/projects/3nUaEHloK-KS_FiFqr7u9g?language=mysql) for practice.
