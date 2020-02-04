@@ -66,4 +66,25 @@ WHERE SId not in
 GROUP BY SId
 HAVING COUNT(CId) =(SELECT COUNT(CId) FROM Course));
 ```
+### --8. 查询至少有一门课与学号为" 01 "的同学所学相同的同学的信息 
+```{SQL}
+SELECT * FROM Student
+WHERE SId in (SELECT DISTINCT SId FROM SC
+WHERE CId in (SELECT DISTINCT CId FROM SC WHERE SId = '01') and SId !='01')
+```
 
+### --9. 查询和" 01 "号的同学学习的课程完全相同的其他同学的信息 
+```{SQL}
+SELECT * FROM Student
+WHERE SId in (SELECT DISTINCT SId FROM SC
+WHERE CId in (SELECT DISTINCT CId FROM SC WHERE SId = '01') and SId !='01'
+GROUP BY SId
+HAVING COUNT(CId) = (SELECT COUNT(DISTINCT CId) FROM SC WHERE SId = '01'))
+```
+
+### --10. 查询没学过「张三」老师讲授的任一门课程的学生姓名 
+```{SQL}
+SELECT *
+FROM Student
+WHERE SId not in (SELECT SId FROM SC WHERE CId in (SELECT CId FROM Course WHERE TId in (SELECT TId FROM Teacher WHERE Tname = '张三')))
+```
