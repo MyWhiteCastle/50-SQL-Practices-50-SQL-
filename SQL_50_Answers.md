@@ -117,3 +117,15 @@ RIGHT JOIN (SELECT SId,score FROM SC
 WHERE CId = '01' and score < 60 ORDER BY score DESC) t1
 ON S.SId = t1.SId
 ~~~~
+
+### --13. 按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩
+~~~~sql
+SELECT S.SId, ifnull(t1.score01,0),ifnull(t1.score02,0),ifnull(t1.score03,0), round(ifnull(t1.avgscore,0),1)
+FROM (SELECT SId,MAX(CASE WHEN CId= '01' THEN score ELSE 0 END) score01,
+MAX(CASE WHEN CId= '02' THEN score ELSE 0 END) score02,
+MAX(CASE WHEN CId= '03' THEN score ELSE 0 END) score03, AVG(score) avgscore from SC
+GROUP BY SId
+ORDER BY AVG(score) DESC) t1
+RIGHT JOIN Student S
+On S.SId = t1.SId
+~~~~
