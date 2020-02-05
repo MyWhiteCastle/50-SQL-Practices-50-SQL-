@@ -90,3 +90,30 @@ SELECT *
 FROM Student
 WHERE SId not in (SELECT SId FROM SC WHERE CId in (SELECT CId FROM Course WHERE TId in (SELECT TId FROM Teacher WHERE Tname = '张三')))
 ~~~~
+
+### --11.查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩
+~~~~sql
+SELECT s.SId, s.Sname, round(t1.avgscore)
+FROM Student s
+RIGHT JOIN (SELECT SId, SUM(CASE WHEN score <60 THEN 1 ELSE 0 END) as failnum, AVG(score) as avgscore
+FROM SC GROUP BY SId) t1
+ON s.SId = t1.SId
+WHERE t1.failnum >=2
+~~~~
+
+~~~~sql
+
+SELECT s.SId, s.Sname, round(t1.avgscore)
+FROM Student s
+RIGHT JOIN (SELECT SId, AVG(score) as avgscore
+FROM SC WHERE score <60 GROUP BY SId HAVING count(score >=2)) t1
+ON s.SId = t1.SId
+~~~~
+
+### --12.检索" 01 "课程分数小于 60 ，按分数降序排列的学生信息
+~~~~sql
+SELECT * FROM Student S
+RIGHT JOIN (SELECT SId,score FROM SC
+WHERE CId = '01' and score < 60 ORDER BY score DESC) t1
+ON S.SId = t1.SId
+~~~~
