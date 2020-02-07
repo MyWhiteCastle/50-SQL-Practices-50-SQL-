@@ -129,3 +129,17 @@ ORDER BY AVG(score) DESC) t1
 RIGHT JOIN Student S
 On S.SId = t1.SId
 ~~~~
+### 14.查询各科成绩最高分、最低分和平均分:
+### --以如下形式显示：课程 ID ，课程 name ，最高分，最低分，平均分，及格率，中等率，优良率，优秀率
+### --及格为>=60，中等为：70-80，优良为：80-90，优秀为：>=90
+~~~~sql
+SELECT C.Cname, t1.*
+FROM (SELECT CId, MAX(score) as maxscore,MIN(score) as minscore, ROUND(AVG(score),1) as avgscore, 
+ROUND(SUM(CASE WHEN score >=60 THEN 1 ELSE 0 END)/COUNT(*)*100,1) as Passed,
+ROUND(SUM(CASE WHEN score >=70 and score <80 THEN 1 ELSE 0 END)/COUNT(*)*100,1) as C,
+ROUND(SUM(CASE WHEN score >=80 and score <90 THEN 1 ELSE 0 END)/COUNT(*)*100,1) as B,
+ROUND(SUM(CASE WHEN score >=90 THEN 1 ELSE 0 END)/COUNT(*)*100,1) as A
+FROM SC GROUP BY CId) t1
+LEFT JOIN Course C
+ON C.CId = t1.CId
+~~~~
